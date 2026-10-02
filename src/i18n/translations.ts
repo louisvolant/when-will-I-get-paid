@@ -50,6 +50,8 @@ export interface TranslationDictionary {
   editSettings: string;
   installApp: string;
   installAppDesc: string;
+  iosInstallStep1: string;
+  iosInstallStep2: string;
   offlineReady: string;
   dayOfMonth: string;
   dayShort: string;
@@ -107,6 +109,8 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     editSettings: 'Modifier les paramètres',
     installApp: 'Installer l’application',
     installAppDesc: 'Ajoute PayDay à ton écran d’accueil pour un accès hors-ligne instantané.',
+    iosInstallStep1: 'Appuyez sur le bouton Partager en bas de Safari.',
+    iosInstallStep2: 'Faites défiler vers le bas et sélectionnez "Sur l’écran d’accueil".',
     offlineReady: 'Disponible hors-connexion',
     dayOfMonth: 'du mois',
     dayShort: 'j',
@@ -162,6 +166,8 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     editSettings: 'Edit Settings',
     installApp: 'Install App',
     installAppDesc: 'Add PayDay to your home screen for instant offline access.',
+    iosInstallStep1: 'Tap the Share button at the bottom of Safari.',
+    iosInstallStep2: 'Scroll down and tap "Add to Home Screen".',
     offlineReady: 'Available offline',
     dayOfMonth: 'of the month',
     dayShort: 'd',
@@ -217,6 +223,8 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     editSettings: 'Einstellungen bearbeiten',
     installApp: 'App installieren',
     installAppDesc: 'Füge PayDay zum Startbildschirm hinzu für schnellen Offline-Zugriff.',
+    iosInstallStep1: 'Tippe unten in Safari auf die Teilen-Schaltfläche.',
+    iosInstallStep2: 'Scrolle nach unten und wähle "Zum Home-Bildschirm".',
     offlineReady: 'Offline verfügbar',
     dayOfMonth: 'des Monats',
     dayShort: 'T',
@@ -272,6 +280,8 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     editSettings: 'Modifica impostazioni',
     installApp: 'Installa app',
     installAppDesc: 'Aggiungi PayDay alla schermata iniziale per l’accesso offline.',
+    iosInstallStep1: 'Tocca il pulsante Condividi in basso su Safari.',
+    iosInstallStep2: 'Scorri verso il basso e seleziona "Aggiungi a schermata Home".',
     offlineReady: 'Disponibile offline',
     dayOfMonth: 'del mese',
     dayShort: 'g',
@@ -327,6 +337,8 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     editSettings: 'Editar definições',
     installApp: 'Instalar aplicação',
     installAppDesc: 'Adicione ao ecrã inicial para acesso imediato e offline.',
+    iosInstallStep1: 'Toque no botão Partilhar na parte inferior do Safari.',
+    iosInstallStep2: 'Desloque para baixo e selecione "Ecrã principal".',
     offlineReady: 'Disponível offline',
     dayOfMonth: 'do mês',
     dayShort: 'd',
@@ -382,6 +394,8 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     editSettings: 'Instellingen bewerken',
     installApp: 'App installeren',
     installAppDesc: 'Voeg PayDay toe aan je startscherm voor offline toegang.',
+    iosInstallStep1: 'Tik onderin Safari op de knop Delen.',
+    iosInstallStep2: 'Scrol naar beneden en tik op "Zet op beginscherm".',
     offlineReady: 'Offline beschikbaar',
     dayOfMonth: 'van de maand',
     dayShort: 'd',

@@ -4,6 +4,7 @@ import { calculatePayday } from './utils/calculator';
 import { loadSettings, saveSettings, clearSettings, detectBrowserLanguage, DEFAULT_SETTINGS } from './services/storage';
 import { getTranslation } from './i18n';
 import { firePaydayConfetti } from './utils/confetti';
+import { isIosDevice, isStandalone } from './utils/pwa';
 import { Header } from './components/Header';
 import { HeroCountdown } from './components/HeroCountdown';
 import { CycleProgressBar } from './components/CycleProgressBar';
@@ -11,6 +12,7 @@ import { UpcomingPaydays } from './components/UpcomingPaydays';
 import { SettingsModal } from './components/SettingsModal';
 import { OnboardingModal } from './components/OnboardingModal';
 import { PwaInstallPrompt } from './components/PwaInstallPrompt';
+import { IosInstallModal } from './components/IosInstallModal';
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -25,8 +27,12 @@ export function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isFirstVisit, setIsFirstVisit] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isIosModalOpen, setIsIosModalOpen] = useState(false);
   const [currentTime, setCurrentTime] = useState<Date>(() => new Date());
   const [deferredInstallPrompt, setDeferredInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+
+  const isIos = useMemo(() => isIosDevice(), []);
+  const [alreadyStandalone] = useState<boolean>(() => isStandalone());
 
   const hasCelebratedToday = useRef(false);
 
@@ -123,6 +129,10 @@ export function App() {
 
   // Handler: Trigger PWA install
   const handleInstallPwa = async () => {
+    if (isIos) {
+      setIsIosModalOpen(true);
+      return;
+    }
     if (!deferredInstallPrompt) return;
     await deferredInstallPrompt.prompt();
     const choice = await deferredInstallPrompt.userChoice;
@@ -130,6 +140,9 @@ export function App() {
       setDeferredInstallPrompt(null);
     }
   };
+
+  // App is installable if Chrome beforeinstallprompt fired OR iOS in browser (not standalone)
+  const canInstallPwa = !alreadyStandalone && (Boolean(deferredInstallPrompt) || isIos);
 
   const dict = getTranslation(settings.language);
 
@@ -148,7 +161,7 @@ export function App() {
         currentLanguage={settings.language}
         onLanguageChange={(language: SupportedLanguage) => handleUpdateSettings({ language })}
         onOpenSettings={() => setIsSettingsOpen(true)}
-        canInstallPwa={Boolean(deferredInstallPrompt)}
+        canInstallPwa={canInstallPwa}
         onInstallPwa={handleInstallPwa}
       />
 
@@ -204,8 +217,16 @@ export function App() {
       {/* PWA Install Banner */}
       <PwaInstallPrompt
         language={settings.language}
-        canInstall={Boolean(deferredInstallPrompt)}
+        canInstall={canInstallPwa}
+        isIos={isIos}
         onInstall={handleInstallPwa}
+      />
+
+      {/* iOS Safari Step-by-Step Modal */}
+      <IosInstallModal
+        isOpen={isIosModalOpen}
+        onClose={() => setIsIosModalOpen(false)}
+        language={settings.language}
       />
     </div>
   );
