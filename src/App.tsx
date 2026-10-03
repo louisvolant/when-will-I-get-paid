@@ -2,7 +2,6 @@ import { useState, useEffect, useMemo, useRef } from 'react';
 import type { DisplayFormat, PaydaySettings, SupportedLanguage, WeekendRule } from './types';
 import { calculatePayday } from './utils/calculator';
 import { loadSettings, saveSettings, clearSettings, detectBrowserLanguage, DEFAULT_SETTINGS } from './services/storage';
-import { getTranslation } from './i18n';
 import { firePaydayConfetti } from './utils/confetti';
 import { isIosDevice, isStandalone } from './utils/pwa';
 import { Header } from './components/Header';
@@ -13,6 +12,7 @@ import { SettingsModal } from './components/SettingsModal';
 import { OnboardingModal } from './components/OnboardingModal';
 import { PwaInstallPrompt } from './components/PwaInstallPrompt';
 import { IosInstallModal } from './components/IosInstallModal';
+import { Footer } from './components/Footer';
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -144,8 +144,6 @@ export function App() {
   // App is installable if Chrome beforeinstallprompt fired OR iOS in browser (not standalone)
   const canInstallPwa = !alreadyStandalone && (Boolean(deferredInstallPrompt) || isIos);
 
-  const dict = getTranslation(settings.language);
-
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-950 text-emerald-400">
@@ -191,11 +189,10 @@ export function App() {
       </main>
 
       {/* Footer */}
-      <footer className="w-full max-w-4xl mx-auto px-4 py-6 text-center text-xs text-slate-400 border-t border-slate-900">
-        <p>
-          {dict.appTitle} • {dict.offlineReady} (PWA & IndexedDB)
-        </p>
-      </footer>
+      <Footer
+        language={settings.language}
+        onLanguageChange={(language: SupportedLanguage) => handleUpdateSettings({ language })}
+      />
 
       {/* Onboarding Modal (shown on first visit) */}
       {isFirstVisit && (
