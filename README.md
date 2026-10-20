@@ -122,6 +122,7 @@ This application is ready for direct deployment on Cloudflare Pages:
    - No `_redirects` file is needed: Cloudflare Pages automatically serves the root `index.html` for any path that does not match a static asset, as long as there is no top-level `404.html`.
    - Do **not** add a catch-all rule such as `/* / 200` or `/* /index.html 200`. Cloudflare applies redirects even when a static asset matches, so all requests (JS, CSS, `sw.js`, icons) would return `index.html` as `text/html`, which browsers block with `X-Content-Type-Options: nosniff`.
    - Security headers and cache policies are defined in `public/_headers`.
+   - Hashed asset filenames include the Cloudflare Pages commit SHA (`CF_PAGES_COMMIT_SHA`) so each deployment publishes new URLs and cannot reuse a stale `immutable` cache entry from a previous deployment.
 
 ---
 

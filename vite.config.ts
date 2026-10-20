@@ -3,8 +3,22 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
+// Cloudflare Pages exposes the deployed commit SHA at build time. Suffixing asset
+// filenames with it guarantees that every deployment gets new URLs, so a stale
+// entry cached as `immutable` can never outlive the deployment that produced it.
+const buildId = (process.env.CF_PAGES_COMMIT_SHA ?? Date.now().toString(36)).slice(0, 12)
+
 // https://vite.dev/config/
 export default defineConfig({
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: `assets/[name]-[hash]-${buildId}.js`,
+        chunkFileNames: `assets/[name]-[hash]-${buildId}.js`,
+        assetFileNames: `assets/[name]-[hash]-${buildId}[extname]`,
+      },
+    },
+  },
   plugins: [
     react(),
     tailwindcss(),
