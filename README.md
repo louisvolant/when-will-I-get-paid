@@ -119,7 +119,8 @@ This application is ready for direct deployment on Cloudflare Pages:
    - **Build output directory**: `dist`
    - **Node.js version**: `20` or higher (configured via environment variable `NODE_VERSION=20` if needed)
 3. **SPA & Caching Rules**:
-   - Cloudflare Pages will automatically pick up `public/_redirects` (`/* /index.html 200`) for single-page routing.
+   - No `_redirects` file is needed: Cloudflare Pages automatically serves the root `index.html` for any path that does not match a static asset, as long as there is no top-level `404.html`.
+   - Do **not** add a catch-all rule such as `/* / 200` or `/* /index.html 200`. Cloudflare applies redirects even when a static asset matches, so all requests (JS, CSS, `sw.js`, icons) would return `index.html` as `text/html`, which browsers block with `X-Content-Type-Options: nosniff`.
    - Security headers and cache policies are defined in `public/_headers`.
 
 ---
