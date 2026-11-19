@@ -13,7 +13,7 @@
   "dependencies": {
     "canvas-confetti": "^1.9.4",
     "idb-keyval": "^6.3.0",
-    "lucide-react": "^1.70.0",
+    "lucide-react": "^1.76.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },
@@ -23,15 +23,16 @@
     "@types/node": "^24.19.2",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
-    "@vitejs/plugin-react": "^6.2.1",
-    "oxlint": "^1.92.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "oxlint": "^1.94.0",
     "tailwindcss": "^4.3.5",
-    "typescript": "~6.0.2",
-    "vite": "^8.3.6",
+    "typescript": "~7.0.2",
+    "vite": "^8.3.8",
     "vite-plugin-pwa": "^2.0.0",
-    "vitest": "^5.1.0"
+    "vitest": "^5.1.1"
   },
   "overrides": {
+    "@babel/plugin-transform-runtime": "^7.29.0",
     "glob": "^14.0.4",
     "minimatch": "^11.0.5"
   }
